@@ -173,9 +173,9 @@ export function useAutoComplete(
     const option = filteredList.find(i => i.value === optionValue);
 
     if (multiple) {
-      inputRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
     }
-    if (autoCompleteProps.focusInputOnSelect) inputRef.current?.focus();
+    if (autoCompleteProps.focusInputOnSelect) inputRef.current?.focus({ preventScroll: true });
     runIfFn(autoCompleteProps.onSelectOption, {
       item: option!,
       selectMethod: interactionRef.current,
@@ -204,12 +204,12 @@ export function useAutoComplete(
       return prevValues.filter(i => i !== itemValue);
     });
     if (query === itemValue) setQuery("");
-    if (focusInput) inputRef.current?.focus();
+    if (focusInput) inputRef.current?.focus({ preventScroll: true });
   };
 
   const resetItems = (focusInput?: boolean) => {
     setValues([]);
-    if (focusInput) inputRef.current?.focus();
+    if (focusInput) inputRef.current?.focus({ preventScroll: true });
   };
 
   const tags = multiple
@@ -287,7 +287,7 @@ export function useAutoComplete(
           if (["Enter", ...submitKeys].includes(key)) {
             if (focusedItem && !focusedItem?.disabled)
               selectItem(focusedItem?.value);
-            else inputRef.current?.focus();
+            else inputRef.current?.focus({ preventScroll: true });
             e.preventDefault();
             return;
           }
@@ -390,7 +390,7 @@ export function useAutoComplete(
         onClick: e => {
           runIfFn(onClick, e);
           if (!disabled) selectItem(value);
-          else inputRef.current?.focus();
+          else inputRef.current?.focus({ preventScroll: true });
         },
         onMouseOver: e => {
           runIfFn(onMouseOver, e);
